@@ -17,6 +17,7 @@
   # networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  swapDevices = [ { device = "/dev/sda5"; } ];
   # Select internationalisation properties.
   i18n = {
     consoleFont = "Lat2-Terminus16";
@@ -25,14 +26,16 @@
   };
 
   # Set your time zone.
-  time.timeZone = "Amercia/New_York";
+  time.timeZone = "America/New_York";
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     ctags
+    arc-gtk-theme
     git
     google-chrome
+    i3status
     neovim
     oh-my-zsh
     python3
@@ -40,11 +43,13 @@
     python35Packages.pip
     rofi
     screenfetch #add support for neofetch in nixpks repo
+    taskwarrior
     terminator
     tree
     vim
     vlc
     wget
+    xorg.xbacklight
     zsh
   ];
 
@@ -78,7 +83,7 @@
   services.xserver.enable = true;
   services.xserver.layout = "us";
   services.xserver.libinput.enable = true;
-  services.xserver.windowManager.awesome.enable = true;
+  services.xserver.windowManager.i3.enable = true;
 
   # Hardware
   hardware.pulseaudio.enable = true;
@@ -93,6 +98,16 @@
     extraGroups = [ "wheel" "networkmanager" ];
   };
 
+  programs.zsh.interactiveShellInit = ''
+    export ZSH=${pkgs.oh-my-zsh}/share/oh-my-zsh/
+
+    ZSH_THEME=steeef
+    plugins=(git)
+
+    source $ZSH/oh-my-zsh.sh
+  '';
+
+  programs.zsh.promptInit = "";
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
 
