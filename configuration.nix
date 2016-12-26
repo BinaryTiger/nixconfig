@@ -31,19 +31,26 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    ctags
     arc-gtk-theme
+    ctags
+    inotify-tools
     git
     google-chrome
     i3status
     neovim
-    oh-my-zsh
+    nodejs
+    mc
+    imagemagick
     python3
     python35Packages.neovim
+    (import ./vim.nix)
     python35Packages.pip
+    cmake
     rofi
     screenfetch #add support for neofetch in nixpks repo
+    scrot
     taskwarrior
+    vimPlugins.YouCompleteMe
     terminator
     tree
     vim
@@ -98,16 +105,6 @@
     extraGroups = [ "wheel" "networkmanager" ];
   };
 
-  programs.zsh.interactiveShellInit = ''
-    export ZSH=${pkgs.oh-my-zsh}/share/oh-my-zsh/
-
-    ZSH_THEME=steeef
-    plugins=(git)
-
-    source $ZSH/oh-my-zsh.sh
-  '';
-
-  programs.zsh.promptInit = "";
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
 
