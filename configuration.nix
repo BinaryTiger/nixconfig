@@ -31,29 +31,29 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    (import ./vim.nix)
     arc-gtk-theme
+    cmake
     ctags
-    inotify-tools
+    pavucontrol
     git
     google-chrome
     i3status
-    neovim
-    nodejs
-    mc
     imagemagick
+    inotify-tools
+    mc
+    nodejs
     python3
     python35Packages.neovim
-    (import ./vim.nix)
     python35Packages.pip
-    cmake
     rofi
     screenfetch #add support for neofetch in nixpks repo
     scrot
     taskwarrior
-    vimPlugins.YouCompleteMe
     terminator
     tree
     vim
+    vimPlugins.YouCompleteMe
     vlc
     wget
     xorg.xbacklight
@@ -91,6 +91,19 @@
   services.xserver.layout = "us";
   services.xserver.libinput.enable = true;
   services.xserver.windowManager.i3.enable = true;
+
+
+  systemd.services.gitwatchDotFiles = {
+    description = "Git watcher for dotfiles";
+    wantedBy = [ "multi-user.target" ]; 
+    after = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "/home/binarytiger/gitwatch.sh -r origin -b master /home/binarytiger";
+      Restart = "on-failure";
+    };
+  };
+
 
   # Hardware
   hardware.pulseaudio.enable = true;

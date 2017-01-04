@@ -16,9 +16,10 @@ vim_configurable.customize {
     syntax enable
     autocmd filetype go setlocal ts=4 sw=4 sts=0 noexpandtab
     colorscheme wombat
+    hi colorcolumn ctermbg=0
 
-    nmap <f7> :tagbartoggle<cr>
-    nmap <f6> :nerdtree<cr>
+    nmap <f7> :TagbarToggle<cr>
+    nmap <f6> :NERDTree<cr>
 
     nnoremap ; :
   '';
