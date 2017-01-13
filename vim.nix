@@ -15,7 +15,7 @@ vim_configurable.customize {
     set colorcolumn=80,100,120
     syntax enable
     autocmd filetype go setlocal ts=4 sw=4 sts=0 noexpandtab
-    colorscheme wombat
+    colorscheme Monokai
     hi colorcolumn ctermbg=0
 
     nmap <f7> :TagbarToggle<cr>
@@ -31,9 +31,10 @@ vim_configurable.customize {
         "vim-gitgutter"
         "Tagbar"
         "vim-nix"
-	"youcompleteme"
+        "youcompleteme"
         "The_NERD_Commenter"
-	"vim-colorschemes"
+        "vim-colorschemes"
+        "rust-vim"
       ]; }
   ];
 }

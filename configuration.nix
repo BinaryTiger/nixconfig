@@ -35,14 +35,17 @@
     arc-gtk-theme
     cmake
     ctags
-    pavucontrol
+    gimp
     git
+    rustc
+    cargo
     google-chrome
     i3status
     imagemagick
     inotify-tools
     mc
     nodejs
+    pavucontrol
     python3
     python35Packages.neovim
     python35Packages.pip
@@ -92,16 +95,25 @@
   services.xserver.libinput.enable = true;
   services.xserver.windowManager.i3.enable = true;
 
-
+  # Transform this into a nix module for easy reuse
   systemd.services.gitwatchDotFiles = {
     description = "Git watcher for dotfiles";
     wantedBy = [ "multi-user.target" ]; 
-    after = [ "network-online.target" ];
+    after = [ "multi-user.target" ];
+    environment = {
+      GW_GIT_BIN = pkgs.git + "/bin/git";
+      GW_INW_BIN = pkgs.inotify-tools + "/bin/inotifywait";
+    };
     serviceConfig = {
       Type = "simple";
+      User = "binarytiger";
       ExecStart = "/home/binarytiger/gitwatch.sh -r origin -b master /home/binarytiger";
-      Restart = "on-failure";
+      Restart = "always";
     };
+  };
+
+  virtualisation = {
+    virtualbox.host.enable = true;
   };
 
 
