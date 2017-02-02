@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -30,19 +29,27 @@
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
+  environment.variables = {
+
+  };
   environment.systemPackages = with pkgs; [
     (import ./vim.nix)
-    arc-gtk-theme
+    cargo
+    clang
+    nix-prefetch-git
     cmake
     ctags
+    elixir
+    erlang
+    gcc
     gimp
     git
-    rustc
-    cargo
+    gnumake
     google-chrome
     i3status
     imagemagick
     inotify-tools
+    jekyll
     mc
     nodejs
     pavucontrol
@@ -50,13 +57,16 @@
     python35Packages.neovim
     python35Packages.pip
     rofi
+    rustc
     screenfetch #add support for neofetch in nixpks repo
     scrot
     taskwarrior
     terminator
     tree
+    unzip
     vim
     vimPlugins.YouCompleteMe
+    vimPlugins.pluginnames2nix
     vlc
     wget
     xorg.xbacklight
@@ -82,6 +92,9 @@
   };
 
   # List services that you want to enable:
+  services.postgresql.enable = true;
+  services.postgresql.package = pkgs.postgresql;
+  services.postgresql.authentication = "local all all ident";
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = false;

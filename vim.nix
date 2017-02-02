@@ -31,10 +31,13 @@ vim_configurable.customize {
         "vim-gitgutter"
         "Tagbar"
         "vim-nix"
+        "vim-elixir"
         "youcompleteme"
         "The_NERD_Commenter"
+        "alchemist-vim"
         "vim-colorschemes"
         "rust-vim"
-      ]; }
+      ]; 
+    }
   ];
 }
